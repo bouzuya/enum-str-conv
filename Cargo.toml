@@ -1,6 +1,6 @@
 [package]
 name = "enum-str-conv"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["bouzuya <m@bouzuya.net>"]
 description = "A derive macro to convert between enum and str"
 edition = "2024"
