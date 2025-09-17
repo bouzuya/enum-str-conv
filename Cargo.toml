@@ -1,7 +1,12 @@
 [package]
 name = "enum-str-conv"
 version = "0.1.0"
+authors = ["bouzuya <m@bouzuya.net>"]
+description = "A derive macro to convert between enum and str"
 edition = "2024"
+keywords = ["derive", "enum", "str"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/bouzuya/enum-str-conv"
 
 [dependencies]
 proc-macro2 = "1.0.101"
