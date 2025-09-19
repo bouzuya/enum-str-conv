@@ -1,3 +1,4 @@
+//! A derive macro to generate [`std::fmt::Display`] and [`std::str::FromStr`] implementations for enums.
 use syn::{DeriveInput, spanned::Spanned as _};
 
 #[proc_macro_derive(EnumStrConv, attributes(enum_str_conv))]
@@ -37,7 +38,7 @@ fn parse(input: syn::DeriveInput) -> Result<Parsed, syn::Error> {
         .iter()
         .map(|variant| {
             let variant_ident = variant.ident.clone();
-            let VariantAttr { str: variant_str } = parse_variant_attr(&variant)?;
+            let VariantAttr { str: variant_str } = parse_variant_attr(variant)?;
             Ok((variant_ident, variant_str))
         })
         .collect::<Result<Vec<(syn::Ident, syn::LitStr)>, syn::Error>>()?;
@@ -105,7 +106,7 @@ fn parse_enum_attr(input: &DeriveInput) -> Result<EnumAttr, syn::Error> {
         .find(|attr| attr.path().is_ident("enum_str_conv"))
         .ok_or_else(|| {
             syn::Error::new_spanned(
-                &input,
+                input,
                 "expected attribute: #[enum_str_conv(error = ..., unknown = ...)]",
             )
         })?;
@@ -127,7 +128,7 @@ fn parse_enum_attr(input: &DeriveInput) -> Result<EnumAttr, syn::Error> {
             unknown = Some(meta_name_value.value.clone());
         } else {
             Err(syn::Error::new_spanned(
-                &meta_name_value,
+                meta_name_value,
                 "unknown argument: #[enum_str_conv(error = ..., unknown = ...)]",
             ))?;
         }
@@ -188,7 +189,7 @@ fn parse_variant_attr(variant: &syn::Variant) -> Result<VariantAttr, syn::Error>
             }
         } else {
             Err(syn::Error::new_spanned(
-                &meta_name_value,
+                meta_name_value,
                 "unknown argument: #[enum_str_conv(str = ...)]",
             ))?;
         }
