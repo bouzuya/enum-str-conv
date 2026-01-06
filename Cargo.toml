@@ -9,7 +9,7 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/bouzuya/enum-str-conv"
 
 [dependencies]
-proc-macro2 = "1.0.101"
+proc-macro2 = "1.0.105"
 quote = "1.0.40"
 syn = "2.0.106"
 
